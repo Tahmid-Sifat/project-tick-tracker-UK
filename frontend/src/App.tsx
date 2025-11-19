@@ -1,68 +1,37 @@
-// I import React's useState so I can remember which sighting is selected
-// and which page (Map / Education / Report) is active.
-import { useState } from "react";
+// I import React and useState because I need simple view + selection state.
+import React, { useState } from "react";
 
-// I import the main stylesheet.
+// I import my main stylesheet for the layout.
 import "./App.css";
 
-// I import my map component.
+// I import the components that make up the different parts of the UI.
 import MapFace from "./components/MapFace";
-
-// I import the Sighting type.
-import type { Sighting } from "./data/sightings";
-
-// I import the simple education section.
 import EducationSection from "./components/EducationSection";
-
 import ReportForm from "./components/ReportForm";
 
+// I import the logo image.
 import logoT from "./assets/logoT.png";
 
+// I import the Sighting type so I can type the selected sighting.
+import type { Sighting } from "./data/sightings";
 
+// I describe the possible "views" or tabs in this app.
+type View = "map" | "education" | "report";
 
-// I describe what kind of values I allow for the current page.
-type Page = "map" | "education" | "report";
+// This is my main App component.
+// It only handles layout, navigation, and which view is shown.
+const App: React.FC = () => {
+  // I store which view/tab is currently active.
+  const [activeView, setActiveView] = useState<View>("map");
 
-function App() {
-  // Selected sighting for the details panel.
+  // I store which sighting is selected on the map (for the right-hand details panel).
   const [selectedSighting, setSelectedSighting] = useState<Sighting | null>(
     null
   );
 
-  // Current page: "map" by default.
-  const [currentPage, setCurrentPage] = useState<Page>("map");
-
-  // When the user clicks "Report a Sighting" (on the right panel),
-  // I switch to the report page. I will add the form later.
-  const handleReportClick = () => {
-    setCurrentPage("report");
-    const element = document.getElementById("report-section");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  // When the user clicks "Get Directions", I open Google Maps for that point.
-  const handleDirectionsClick = () => {
-    if (!selectedSighting) return;
-    const url = `https://www.google.com/maps?q=${selectedSighting.lat},${selectedSighting.lng}`;
-    window.open(url, "_blank");
-  };
-
-  // When the user clicks "Share", I just show a simple alert for now.
-  const handleShareClick = () => {
-    if (!selectedSighting) return;
-    const message = `Tick sighting in ${selectedSighting.location} on ${selectedSighting.date}`;
-    alert(`Sharing this sighting:\n\n${message}`);
-  };
-
-  // I create a helper to set the page and also clear the selected sighting
-  // when I leave the map view.
-  const handleChangePage = (page: Page) => {
-    setCurrentPage(page);
-    if (page !== "map") {
-      setSelectedSighting(null);
-    }
+  // When the user clicks a marker, the map calls this function.
+  const handleSelectSighting = (sighting: Sighting) => {
+    setSelectedSighting(sighting);
   };
 
   return (
@@ -70,42 +39,45 @@ function App() {
       {/* HEADER */}
       <header className="header">
         <div className="header-title">
-         <img src={logoT} alt="TickSight Logo" className="logo-img" />
+          <img src={logoT} alt="TickSight logo" className="brand-logo" />
           <h1 className="brand-name">TickSight UK</h1>
           <span className="brand-subtitle">Elanco Task</span>
         </div>
 
-        {/* These buttons switch between the simple "pages". */}
+        {/* Simple navigation between Map / Education / Report */}
         <nav className="nav-buttons">
           <button
-            className={`nav-button ${currentPage === "map" ? "active" : ""}`}
-            onClick={() => handleChangePage("map")}
+            className={`nav-button ${activeView === "map" ? "active" : ""}`}
+            onClick={() => setActiveView("map")}
           >
             Map
           </button>
           <button
             className={`nav-button ${
-              currentPage === "education" ? "active" : ""
+              activeView === "education" ? "active" : ""
             }`}
-            onClick={() => handleChangePage("education")}
+            onClick={() => setActiveView("education")}
           >
             Education
           </button>
           <button
             className={`nav-button ${
-              currentPage === "report" ? "active" : ""
+              activeView === "report" ? "active" : ""
             }`}
-            onClick={() => handleChangePage("report")}
+            onClick={() => setActiveView("report")}
           >
             Report
           </button>
         </nav>
       </header>
 
-      {/* MAIN CONTENT: I choose what to show based on currentPage. */}
-      {currentPage === "map" && (
+      {/* MAIN CONTENT: I show different content depending on the active view. */}
+
+      {/* 1) MAP VIEW */}
+      {activeView === "map" && (
         <main className="content-layout">
-{/* LEFT PANEL: simple demo filters (no real logic yet) */}
+
+         {/* LEFT PANEL: simple demo filters (no real logic yet) */}
 <aside className="side-panel left-panel">
   <h2>Filters</h2>
   <p className="muted small">
@@ -166,8 +138,7 @@ function App() {
   </button>
 </aside>
 
-
-          {/* MIDDLE PANEL: Map */}
+          {/* CENTER: map section */}
           <section className="map-section">
             <header className="map-section-header">
               <div>
@@ -177,7 +148,7 @@ function App() {
                 </p>
               </div>
 
-              {/* Simple text legend for marker colours */}
+              {/* Simple legend to explain marker colours */}
               <div className="legend">
                 <span className="legend-dot low"></span> Low
                 <span className="legend-dot medium"></span> Medium
@@ -185,95 +156,79 @@ function App() {
               </div>
             </header>
 
-            {/* The map fills this wrapper. */}
+            {/* The actual map lives in this wrapper. */}
             <div className="map-wrapper">
-              <MapFace onSelectSighting={setSelectedSighting} />
+              <MapFace onSelectSighting={handleSelectSighting} />
             </div>
           </section>
 
-          {/* RIGHT PANEL: Sighting details */}
+          {/* RIGHT PANEL: details about the currently selected sighting */}
           <aside className="side-panel right-panel">
             <h2>Sighting Details</h2>
+            <p className="muted">
+              When I click a marker on the map, I show the details here.
+            </p>
 
-            {/* If no sighting is selected yet, I show a simple message. */}
-            {!selectedSighting && (
-              <>
-                <p className="muted">
-                  When I click a marker on the map, I will show the details
-                  here.
+            {selectedSighting ? (
+              <div className="placeholder-box">
+                <p className="muted small">
+                  <strong>Species:</strong> {selectedSighting.species}
                 </p>
-
-                <div className="placeholder-box">
-                  <p className="muted small">No sighting selected yet.</p>
-                </div>
-              </>
+                <p className="muted small">
+                  <strong>Location:</strong> {selectedSighting.location}
+                </p>
+                <p className="muted small">
+                  <strong>Date:</strong> {selectedSighting.date}
+                  {selectedSighting.time && ` at ${selectedSighting.time}`}
+                </p>
+                <p className="muted small">
+                  <strong>Severity:</strong> {selectedSighting.severity}
+                </p>
+              </div>
+            ) : (
+              <div className="placeholder-box">
+                <p className="muted small">No sighting selected yet.</p>
+              </div>
             )}
 
-            {/* If a sighting is selected, I display its details. */}
-            {selectedSighting && (
-              <>
-                <p className="muted">
-                  This is the sighting I clicked on the map.
-                </p>
-
-                <div className="placeholder-box">
-                  <p className="small">
-                    <strong>Species:</strong> {selectedSighting.species}
-                  </p>
-                  <p className="small">
-                    <strong>Severity:</strong> {selectedSighting.severity}
-                  </p>
-                  <p className="small">
-                    <strong>Date &amp; time:</strong>{" "}
-                    {selectedSighting.date} at {selectedSighting.time}
-                  </p>
-                  <p className="small">
-                    <strong>Location:</strong> {selectedSighting.location}
-                  </p>
-                </div>
-              </>
-            )}
-
-            {/* Quick actions */}
+            {/* Quick action buttons */}
             <div className="actions">
-              <button className="primary-button" onClick={handleReportClick}>
+              <button
+                className="primary-button"
+                onClick={() => setActiveView("report")}
+              >
                 Report a Sighting
               </button>
-              <button
-                className="secondary-button"
-                onClick={handleDirectionsClick}
-                disabled={!selectedSighting}
-              >
-                Get Directions
-              </button>
-              <button
-                className="secondary-button"
-                onClick={handleShareClick}
-                disabled={!selectedSighting}
-              >
-                Share
-              </button>
+              <button className="secondary-button">Get Directions</button>
+              <button className="secondary-button">Share</button>
             </div>
           </aside>
         </main>
       )}
 
-      {currentPage === "education" && (
-        <main className="simple-page-wrapper">
-          <EducationSection />
-        </main>
+      {/* 2) EDUCATION VIEW */}
+      {activeView === "education" && (
+        <div className="simple-page-wrapper">
+          <div className="simple-page">
+            <EducationSection />
+          </div>
+        </div>
       )}
 
-  {currentPage === "report" && (
-  <main className="simple-page-wrapper" id="report-section">
-    <div className="simple-page">
-      <ReportForm />
-    </div>
-  </main>
-)}
-
+      {/* 3) REPORT VIEW */}
+      {activeView === "report" && (
+        <div className="simple-page-wrapper">
+          <div className="simple-page">
+            <h2>Report a Sighting</h2>
+            <p className="muted">
+              I use this form to collect key information about a new sighting.
+            </p>
+            <ReportForm />
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;

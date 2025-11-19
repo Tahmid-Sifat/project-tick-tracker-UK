@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1763575678250,
+    "date": "2025-11-19",
+    "time": "09:07",
+    "location": "London",
+    "species": "Tick A",
+    "severity": "medium"
+  },
+  {
+    "id": 1763575750303,
+    "date": "2025-11-12",
+    "time": "19:08",
+    "location": "12",
+    "species": "Tick A",
+    "severity": "low"
+  },
+  {
+    "id": 1763576254574,
+    "date": "2025-11-18",
+    "time": "18:17",
+    "location": "334",
+    "species": "Tick B",
+    "severity": "medium"
+  }
+]

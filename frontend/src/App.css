@@ -1,6 +1,33 @@
+/* GLOBAL BASE STYLES MOVED FROM index.css */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+
 /* I reset some basic stuff so the page looks consistent. */
 * {
   box-sizing: border-box;
+}
+
+/* Using professional system font stack */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Helvetica Neue", Arial, sans-serif;
 }
 
 /* I keep my main accent colours here so they are easy to reuse. */
@@ -47,6 +74,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  justify-content: space-between; /* PUSH left and right apart */
+  width: 100%;
   padding: 0.9rem 1.6rem;
   border-bottom: 1px solid var(--surface-border);
   background: var(--surface-dark-2);
@@ -78,6 +107,53 @@ body {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
+
+/* I am grouping the accessibility icon and the nav buttons on the right side of the header. */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* adds space between nav and icon */
+}
+
+/* I am styling a generic small circular icon button. */
+.icon-button {
+  border: 1.3px solid var(--surface-border-soft);
+  background: var(--surface-dark-2);
+  border-radius: 999px;
+  padding: 0.35rem 0.45rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.icon-button:hover {
+  background: #111827;
+  transform: translateY(-1px);
+}
+
+.icon-button:active {
+  transform: translateY(0);
+}
+
+/* I am making the accessibility icon image fit nicely inside the pill button. */
+.accessibility-icon-image {
+  width: 28px;
+  height: 28px;
+  display: block;
+  filter: brightness(1.1);
+}
+
+
+/* When the screen reader is active, I am giving the button a green highlight. */
+.accessibility-button[aria-pressed="true"] {
+  background: #22c55e;
+  color: #022c22;
+  box-shadow: 0 0 0 1px #16a34a;
+}
+
 
 .nav-buttons {
   display: flex;
@@ -393,7 +469,78 @@ body {
   transform: translateY(-1px);
 }
 
-/* SIMPLE PAGE LAYOUTS FOR EDUCATION / REPORT */
+/* SIMPLE PAGE LAYOUTS FOR EDUCATION  */
+
+
+/* EDUCATION: Species search bar demo */
+.species-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.species-search-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+/* EDUCATION: species "View image" button */
+.species-view-button {
+  margin-left: 0.4rem;
+  padding-inline: 0.6rem;
+  padding-block: 0.25rem;
+  font-size: 0.75rem;
+}
+
+/* EDUCATION: tick image modal */
+.tick-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.tick-modal {
+  background-color: #020617; /* matches the dark surface */
+  border-radius: 12px;
+  padding: 1rem;
+  max-width: 480px;
+  width: 90%;
+  border: 1px solid #374151;
+}
+
+.tick-modal-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.tick-modal-description {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.tick-modal-image-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #1f2937;
+  margin-bottom: 0.75rem;
+}
+
+.tick-modal-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 
 .simple-page-wrapper {
   flex: 1 1 auto;

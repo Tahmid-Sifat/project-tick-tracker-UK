@@ -2,7 +2,7 @@
 export type Severity = "low" | "medium" | "high";
 
 // This is the shape of one tick sighting in my app.
-export type Sighting = {
+export type Sighting = { // so creating a typescript type named Sighting 
   id: number;
   lat: number;
   lng: number;

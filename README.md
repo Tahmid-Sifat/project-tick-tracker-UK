@@ -92,5 +92,70 @@ CORS
 
 File system API (fs) for lightweight JSON persistence
 
- 
+
+How to run the project : 
+
+Prerequisites:
+You need Node.js installed (version 18 or higher recommended). npm comes with Node, so no separate installation is required.
+This project has two parts:
+
+A frontend (React + Vite)
+
+A backend (Node + Express)
+Both need to be running.
+
+Step 1: Start the backend
+
+Open a terminal.
+
+Navigate into the backend folder:
+cd backend
+
+Install backend dependencies:
+npm install
+
+Start the backend server:
+npm start
+
+The backend will run at:
+http://localhost:4000
+
+It exposes a single API endpoint:
+POST /api/sightings
+
+Sightings are saved in:
+backend/sightings.json
+This file is created automatically if it does not exist.
+
+Step 2: Start the frontend
+
+Open a second terminal window.
+
+Navigate into the frontend folder:
+cd frontend
+
+Install frontend dependencies:
+npm install
+
+Start the Vite development server:
+npm run dev
+
+Vite will start and display a local URL, usually:
+http://localhost:5173
+
+Open that address in your browser.
+
+Step 3: Using the application
+Once both servers are running:
+
+The Map view shows demo tick sightings across the UK.
+
+Clicking a marker shows details in the right-hand panel.
+
+The Education view shows four species with descriptions and image popups.
+
+The Report view lets you submit a new tick sighting to the backend.
+
+The screen-reader button in the header reads out the visible page text.
+
 

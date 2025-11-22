@@ -22,5 +22,29 @@
     "location": "334",
     "species": "Tick B",
     "severity": "medium"
+  },
+  {
+    "id": 1763759329926,
+    "date": "2025-11-05",
+    "time": "21:10",
+    "location": "Exeter",
+    "species": "Tick B",
+    "severity": "medium"
+  },
+  {
+    "id": 1763763435217,
+    "date": "2025-03-13",
+    "time": "12:17",
+    "location": "234",
+    "species": "Tick B",
+    "severity": "high"
+  },
+  {
+    "id": 1763764217266,
+    "date": "2012-01-08",
+    "time": "10:32",
+    "location": "Belfest",
+    "species": "Hedgehog tick",
+    "severity": "low"
   }
 ]

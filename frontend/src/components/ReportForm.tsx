@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// I describe the shape of the form data so it is easy to reason about.
+// describing the shape of the form data by creating a new type .
 type FormData = {
   date: string;
   time: string;
@@ -9,15 +9,15 @@ type FormData = {
   severity: string;
 };
 
-// I keep the error messages simple: one optional string per field.
+// keeping the error messages like one optional string per field
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-// I describe the possible status types for my status box.
+//  the possible status types for my status box.
 type StatusType = "success" | "error" | "warning" | null;
 
-// This is the main "Report a sighting" form.
+// This is the main "Report a sighting" form as react function component 
 const ReportForm: React.FC = () => {
-  // I store the current form values here.
+  // storing the current form values here , using useState Hook
   const [formData, setFormData] = useState<FormData>({
     date: "",
     time: "",
@@ -29,18 +29,19 @@ const ReportForm: React.FC = () => {
   // I store validation errors here.
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // I store a simple status message so the user gets feedback.
+  //  simple status message so the user gets feedback.
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [statusType, setStatusType] = useState<StatusType>(null);
 
-  // I update a single field when the user types or selects a value.
+  // update a single field when the user types or selects a value.
+  // basically telling ts that the event comes from either text input/dropdown select
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> 
   ) => {
     const { name, value } = event.target;
 
     setFormData((previous) => ({
-      ...previous,
+      ...previous, // using spread syntax to keep existing fields  
       [name]: value,
     }));
 
@@ -51,8 +52,9 @@ const ReportForm: React.FC = () => {
     }));
   };
 
-  // I run a very simple validation before submitting.
-  const validate = (): boolean => {
+  //   I am doing a very simple validation before submitting 
+
+  const validate = (): boolean => { // declaring a function that will return boolean
     const newErrors: FormErrors = {};
 
     if (!formData.date) newErrors.date = "Please choose a date.";
@@ -68,15 +70,15 @@ const ReportForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // I handle the submit event for the form and send data to my backend.
+  // handling the submit event for the form and send data to my backend
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault(); // I stop the default browser submit.
 
-    // I clear any previous status.
+    // clearing any previous status  from the useState hook
     setStatusMessage(null);
     setStatusType(null);
 
-    const isValid = validate();
+    const isValid = validate(); // calling the validation function  
 
     if (!isValid) {
       // If my own validation fails, I show an error status.
@@ -86,22 +88,24 @@ const ReportForm: React.FC = () => {
     }
 
     try {
-      // I send the form data to my backend as JSON.
+      // sending the form data to my backend as JSON.
+      // making the HTTP request by using fetch 
+      // await is basically making the function pause temporarily till fetch request is done
       const response = await fetch("http://localhost:4000/api/sightings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" }, // telling the server that json is being sent
+        body: JSON.stringify(formData), // converting the object into JSON string
       });
 
-      // I try to read the JSON response from the server.
+      // I try to read the JSON response from the server ( that I got using fetch )
       const data = await response.json();
 
       // If the server sends a non-OK status or an error status, I treat it as an error.
       if (!response.ok || data.status === "error") {
         // If the server sent back field errors, I merge them into my errors state.
         if (data.errors) {
-          setErrors((prev) => ({ ...prev, ...data.errors }));
-        }
+          setErrors((prev) => ({ ...prev, ...data.errors })); // using state updater function
+        } // here ...prev is gathering all existing errors 
 
         setStatusType("error");
         setStatusMessage(
@@ -113,8 +117,8 @@ const ReportForm: React.FC = () => {
       // At this point, the backend saved the sighting successfully.
       // Now I decide if this is a success or a warning message.
 
-      // I check if the location looks suspicious: only digits and spaces.
-      const locationLooksNumericOnly = /^[0-9\s]+$/.test(
+      // I check if the location looks unsual : only digits and spaces instead of letters
+      const locationLooksNumericOnly = /^[0-9\s]+$/.test( // using regex for digits 
         formData.location.trim()
       );
 
@@ -126,7 +130,7 @@ const ReportForm: React.FC = () => {
           "Your sighting has been saved, but the location looks unusual (only numbers). Please double-check it."
         );
       } else if (formData.severity === "high") {
-        // If the severity was high, I show a success state
+        // If the severity is high, I show a success state
         // and make it clear that this is a high-alert sighting.
         setStatusType("success");
         setStatusMessage(
@@ -138,7 +142,7 @@ const ReportForm: React.FC = () => {
         setStatusMessage("Thank you, your sighting has been recorded.");
       }
 
-      // I reset the form so it feels fresh after submitting.
+      // resetting the form so it feels fresh after submitting.
       setFormData({
         date: "",
         time: "",
@@ -163,12 +167,12 @@ const ReportForm: React.FC = () => {
     <section className="simple-card">
       <h2>Report a sighting</h2>
       <p className="muted">
-        This is a simple demo form. I now send the data to my own backend and
+        This is a simple demo form. This form sends the data to the backend and
         store it in a small JSON file.
       </p>
 
       {/* I show a small status message above the form. */}
-      {statusMessage && (
+      {statusMessage && ( // using conditional rendering again 
         <div
           className={`status-box ${
             statusType === "success"
@@ -236,9 +240,11 @@ const ReportForm: React.FC = () => {
             onChange={handleChange}
           >
             <option value="">Select species</option>
-            <option value="Tick A">Tick A</option>
-            <option value="Tick B">Tick B</option>
-            <option value="Tick C">Tick C</option>
+            <option value="Sheep or deer tick">Sheep or deer tick</option>
+            <option value="Hedgehog tick">Hedgehog tick</option>
+            <option value="Passerine tick">Passerine tick</option>
+            <option value="Red sheep tick">Red sheep tick</option>
+            
           </select>
           {errors.species && <p className="error-text">{errors.species}</p>}
         </div>

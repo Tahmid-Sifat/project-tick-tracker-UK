@@ -13,7 +13,7 @@ import ReportForm from "./components/ReportForm";
 // importing the logo image.
 import logoT from "./assets/logoT.png";
 // importing the small reader icon PNG for my accessibility toggle.
-import readerIcon from "./assets/reader.PNG";
+import readerIcon from "./assets/reader.png";
 
 
 // importing the Sighting type so I can type the selected sighting.
@@ -200,13 +200,16 @@ const App: React.FC = () => { // dot FC meaning , App is a react function compon
     <h3 className="filter-title">Species</h3>
     <div className="filter-group">
       <label className="checkbox-row">
-        <input type="checkbox" /> <span>Tick A</span>
+        <input type="checkbox" /> <span>Sheep or deer tick</span>
       </label>
       <label className="checkbox-row">
-        <input type="checkbox" /> <span>Tick B</span>
+        <input type="checkbox" /> <span>Hedgehog tick</span>
       </label>
       <label className="checkbox-row">
-        <input type="checkbox" /> <span>Tick C</span>
+        <input type="checkbox" /> <span>Passerine tick</span>
+      </label>
+      <label className="checkbox-row">
+        <input type="checkbox" /> <span>Red sheep tick</span>
       </label>
     </div>
   </div>

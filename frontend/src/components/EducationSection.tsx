@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// importing the react library and the useState hook from React 
+// useState hook is used to track which species is currently selected 
 
 // importing the four species images from the assets folder.
 import sheepTick from "../assets/sheepTick.jpg";
@@ -15,6 +17,7 @@ type SpeciesInfo = { // defining a typescript type which will contain SpeciesInf
 // purpose of creating this type is for better error validation 
 
 // putting species data in a small array so it is easy to map over.
+
 const speciesList: SpeciesInfo[] = [ // using the type I declared 
   {
     id: "sheep-deer",
@@ -46,13 +49,14 @@ const speciesList: SpeciesInfo[] = [ // using the type I declared
   },
 ];
 
-// This component is a simple education page.
-// I keep it small so it is easy to explain in the interview.
-const EducationSection: React.FC = () => {
-  // I store which species image is currently being shown in the popup.
-  const [activeSpecies, setActiveSpecies] = useState<SpeciesInfo | null>(null);
+// declaring react function component for the education section contents 
 
-  return (
+const EducationSection: React.FC = () => {
+  // storing which species image is currently being shown in the popup.
+  const [activeSpecies, setActiveSpecies] = useState<SpeciesInfo | null>(null);
+// here , useState using type union impplying either speciesInfo objects can be selected or null 
+
+return (
     <div className="simple-page">
       <section className="simple-card">
         <h2>Tick species (basic guide)</h2>
@@ -72,13 +76,13 @@ const EducationSection: React.FC = () => {
 
 
         <ul className="simple-list">
-          {speciesList.map((species) => (
-            <li key={species.id}>
+          {speciesList.map((species) => ( // mapping through the speciesList , each iteration turns into a list
+            <li key={species.id}> 
               <strong>{species.name}</strong> – {species.description}
               <button
                 type="button"
                 className="secondary-button species-view-button"
-                onClick={() => setActiveSpecies(species)}
+                onClick={() => setActiveSpecies(species)} // set active species 
               >
                 View image
               </button>
@@ -106,15 +110,15 @@ const EducationSection: React.FC = () => {
         </ul>
       </section>
 
-      {/* Simple image popup for the selected species */}
-      {activeSpecies && (
+      {/* image popup for the selected species , using classic react conditional rendering*/}
+      {activeSpecies && ( 
         <div
           className="tick-modal-backdrop"
           onClick={() => setActiveSpecies(null)}
         >
           <div
             className="tick-modal"
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()} // so that clicking inside the box does not close it 
           >
             <h3 className="tick-modal-title">{activeSpecies.name}</h3>
             <p className="muted tick-modal-description">

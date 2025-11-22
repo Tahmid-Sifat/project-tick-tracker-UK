@@ -1,4 +1,4 @@
-/* GLOBAL BASE STYLES MOVED FROM index.css */
+/* Global base styles */
 
 *,
 *::before,
@@ -6,32 +6,10 @@
   box-sizing: border-box;
 }
 
+/* setting  dark theme and keep shared colours here so I can reuse them. */
 :root {
   color-scheme: dark;
-}
 
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-
-/* I reset some basic stuff so the page looks consistent. */
-* {
-  box-sizing: border-box;
-}
-
-/* Using professional system font stack */
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-               "Helvetica Neue", Arial, sans-serif;
-}
-
-/* I keep my main accent colours here so they are easy to reuse. */
-:root {
   --accent-bright-1: #b6ff59; /* lime */
   --accent-bright-2: #84fbb1; /* mint */
   --accent-bright-3: #48f5d1; /* aqua */
@@ -43,19 +21,23 @@ body {
   --surface-border: #0c0623;
   --surface-border-soft: #2c0263;
   --text-muted: #9ca3af;
+  --hover-color1:#0b1220;
+  --border-hover1:#4b5563;
 }
 
-/* I let html, body and #root fill the whole viewport. */
+/* making html, body and #root fill the whole viewport with no default margin. */
 html,
 body,
 #root {
-  height: 100%;
   margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
-/* I pick a clean font and dark background so the bright accents stand out. */
+/* I use a modern system font stack and a dark background so the bright accents stand out. */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", Arial, sans-serif;
   background-color: var(--surface-dark-1);
   color: #f9fafb;
 }
@@ -69,12 +51,11 @@ body {
 
 /* HEADER */
 
-/* Top bar with title + nav. */
+/* Top bar with brand on the left and navigation on the right. */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  justify-content: space-between; /* PUSH left and right apart */
   width: 100%;
   padding: 0.9rem 1.6rem;
   border-bottom: 1px solid var(--surface-border);
@@ -84,38 +65,37 @@ body {
 
 .header-title {
   display: flex;
-  align-items: center;   /* perfect vertical alignment */
+  align-items: center;
   gap: 0.6rem;
 }
 
 .brand-logo {
-  width: 38px;
-  height: 38px;
+  width: 41px;
+  height: 41px;
   object-fit: contain;
   display: block;
 }
 
-
 .brand-name {
-  font-size: 1rem;
+  font-size: 1.1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0;
 }
 
 .brand-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
 }
 
-/* I am grouping the accessibility icon and the nav buttons on the right side of the header. */
+/* On the right side I keep the nav buttons and the accessibility icon together. */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1rem; /* adds space between nav and icon */
+  gap: 1rem;
 }
 
-/* I am styling a generic small circular icon button. */
+/* Small circular icon button (using for the screen reader toggle). */
 .icon-button {
   border: 1.3px solid var(--surface-border-soft);
   background: var(--surface-dark-2);
@@ -130,15 +110,16 @@ body {
 }
 
 .icon-button:hover {
-  background: #111827;
-  transform: translateY(-1px);
+  background: var(--hover-color1);
+  border-color: var(--border-hover1);
+  transform: translateY(-1.5px);
 }
 
 .icon-button:active {
   transform: translateY(0);
 }
 
-/* I am making the accessibility icon image fit nicely inside the pill button. */
+/* keeping the accessibility icon image at a clear, readable size. */
 .accessibility-icon-image {
   width: 28px;
   height: 28px;
@@ -146,15 +127,14 @@ body {
   filter: brightness(1.1);
 }
 
-
-/* When the screen reader is active, I am giving the button a green highlight. */
+/* When the screen reader is active, I highlight the button in green. */
 .accessibility-button[aria-pressed="true"] {
   background: #22c55e;
   color: #022c22;
   box-shadow: 0 0 0 1px #16a34a;
 }
 
-
+/* Main navigation buttons in the header. */
 .nav-buttons {
   display: flex;
   gap: 0.5rem;
@@ -162,25 +142,33 @@ body {
 
 .nav-button {
   border-radius: 999px;
-  border: 1px solid var(--surface-border-soft);
+  border: 1.5px solid var(--surface-border-soft);
   background-color: var(--surface-dark-2);
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0.4rem 0.8rem;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
     transform 0.1s ease;
 }
 
 .nav-button:hover {
-  background-color: #0b1220;
+  background-color: var(--hover-color1);
   color: #e5e7eb;
-  border-color: #1e293b;
+  transform: translateY(-1px);
+  border-color: var(--border-hover1);
 }
 
-/* Active tab uses a gradient from aqua to blue from the palette. */
+/* using a gradient for active states so the current view is obvious. */
 .nav-button.active {
-  background: linear-gradient(to right, var(--accent-bright-3), var(--accent-bright-5));
+  background: linear-gradient(
+    to right,
+    var(--accent-bright-3),
+    var(--accent-bright-5)
+  );
   color: #020617;
   border-color: var(--accent-bright-4);
   font-weight: 600;
@@ -188,16 +176,13 @@ body {
 
 /* MAIN LAYOUT */
 
-/*
-  This is the area with the 3 columns.
-  I tell it to fill all the remaining height under the header using flex:1.
-*/
+/* This is the area with the 3 columns (filters, map, details). */
 .content-layout {
-  flex: 1 1 auto;      /* take all leftover vertical space */
-  display: flex;       /* 3 columns side by side */
+  flex: 1 1 auto;
+  display: flex;
   gap: 1rem;
   padding: 1rem 1.6rem;
-  min-height: 0;       /* important so children can stretch */
+  min-height: 0;
 }
 
 /* PANELS */
@@ -215,7 +200,7 @@ body {
 
 /* Fixed widths for left and right panels. */
 .left-panel {
-  flex: 0 0 180px;   
+  flex: 0 0 180px;
 }
 .right-panel {
   flex: 0 0 280px;
@@ -225,8 +210,9 @@ body {
 
 .filter-section {
   margin-top: 0.9rem;
-  margin-right: 0;   
+  margin-right: 0;
 }
+
 .filter-title {
   margin: 0 0 0.35rem;
   font-size: 0.85rem;
@@ -238,7 +224,7 @@ body {
   gap: 0.4rem;
 }
 
-/* I place the two date inputs side by side. */
+/* placing the two date inputs side by side. */
 .filter-dates {
   flex-direction: row;
   gap: 0.5rem;
@@ -252,17 +238,17 @@ body {
 }
 
 .filter-dates span {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
 }
 
-/* I reuse the form input look here so it feels consistent. */
+/* Date inputs reuse the form input style but slightly smaller. */
 .filter-dates input[type="date"] {
-  padding: 0.3rem 0.35rem;  /* Reduced from 0.35rem 0.4rem */
-  border-radius: 6px;  /* Reduced from 8px */
-  border: 1px solid rgba(15, 23, 42, 0.35);
-  background-color: rgba(255, 255, 255, 0.9);
-  color: rgba(12, 12, 14, 0.9);
-  font-size: 0.7rem;  /* Reduced from 0.8rem */
+  padding: 0.3rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid rgba(151, 154, 160, 0.35);
+  background-color: rgba(20, 19, 21, 0.9);
+  color: rgba(208, 208, 222, 0.9);
+  font-size: 0.71rem;
 }
 
 .checkbox-row {
@@ -273,14 +259,14 @@ body {
 }
 
 .checkbox-row input {
-  accent-color: #2563eb; /* small accessible blue tick */
+  accent-color: #2563eb;
 }
 
-/* Severity chips */
-
+/* Severity chips. */
 .chip-row {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 9px;
   gap: 0.4rem;
 }
 
@@ -291,10 +277,13 @@ body {
   font-size: 0.75rem;
   background-color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.1s ease;
 }
 
-/* I tint each chip slightly to match the legend colours. */
+/* making each chip to roughly match the legend colours. */
 .chip-low {
   background-color: rgba(0, 122, 33, 0.677);
 }
@@ -309,32 +298,29 @@ body {
 
 .chip:hover {
   transform: translateY(-1px);
+  border-color: 1.5px solid var(--border-hover1);
   box-shadow: 0 2px 4px rgba(15, 23, 42, 0.25);
 }
 
-/* I push the reset button to the bottom of the panel. */
+/* I push the reset button to the bottom of the filter panel. */
 .filter-reset {
   margin-top: auto;
-  margin-top: 1.2rem;
 }
-
 
 /* MAP SECTION */
 
-/*
-  The middle column that holds the map.
-  I let it grow to fill whatever space is left between the side panels.
-*/
+/* The middle column holds the map and grows to fill the space. */
+
 .map-section {
-  flex: 1 1 auto;          /* grows horizontally */
+  flex: 1 1 auto; /* this is the part approving growing  */
   min-width: 0;
-  min-height: 0;           /* lets the map use full height */
+  min-height: 0;
   background-color: var(--surface-dark-2);
   border-radius: 16px;
   border: 1px solid var(--surface-border-soft);
   padding: 1rem;
   display: flex;
-  flex-direction: column;  /* header on top, map below */
+  flex-direction: column;
 }
 
 .map-section-header {
@@ -347,25 +333,19 @@ body {
 
 .map-section-header h2 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
-/* MAP WRAPPER */
-
-/*
-  This box holds the Leaflet map and is where I let flex
-  control the vertical size: it fills whatever height is left
-  under the small header inside the map section.
-*/
+/* This box holds the Leaflet map and lets it fill the remaining height. */
 .map-wrapper {
-  flex: 1 1 auto;  /* fill vertical space under the header inside map-section */
+  flex: 1 1 auto;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #1f2937;
   min-height: 0;
 }
 
-/* I tell Leaflet's container to fill this wrapper completely. */
+/* instructing  Leaflet's container to fill this wrapper completely. */
 .leaflet-container {
   width: 100%;
   height: 100%;
@@ -381,11 +361,11 @@ body {
   border-radius: 999px;
   border: 1px solid var(--surface-border-soft);
   padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
+  font-size: 0.79rem;
   color: var(--text-muted);
 }
 
-/* Severity dots still use traffic-light colours (to match future markers). */
+/* Severity dots use simple traffic-light colours. */
 .legend-dot {
   width: 8px;
   height: 8px;
@@ -407,7 +387,7 @@ body {
 
 .muted {
   margin: 0.25rem 0 0;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
@@ -420,7 +400,7 @@ body {
 .placeholder-box {
   margin-top: 0.5rem;
   border-radius: 10px;
-  border: 1px dashed #374151;
+  border: 1px solid #374151;
   padding: 0.6rem 0.7rem;
   background-color: #02091b;
 }
@@ -432,12 +412,16 @@ body {
   gap: 0.5rem;
 }
 
-/* Primary button now uses the aqua → blue gradient from the palette. */
+/* Primary button uses the aqua → blue gradient so it stands out. */
 .primary-button {
   border-radius: 999px;
   padding: 0.5rem 0.9rem;
   border: none;
-  background: linear-gradient(to right, var(--accent-bright-3), var(--accent-bright-5));
+  background: linear-gradient(
+    to right,
+    var(--accent-bright-3),
+    var(--accent-bright-5)
+  );
   color: #020617;
   font-size: 0.85rem;
   cursor: pointer;
@@ -458,21 +442,58 @@ body {
   color: var(--text-muted);
   font-size: 0.8rem;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
     transform 0.1s ease;
 }
 
 .secondary-button:hover {
-  background-color: #0b1220;
+  background-color: var(--hover-color1);
   color: #e5e7eb;
-  border-color: #4b5563;
+  border-color: var(--border-hover1);
   transform: translateY(-1px);
 }
 
 /* SIMPLE PAGE LAYOUTS FOR EDUCATION  */
 
+.simple-page-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  padding: 1rem 1.6rem;
+}
 
-/* EDUCATION: Species search bar demo */
+.simple-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.simple-card {
+  background-color: var(--surface-dark-2);
+  border-radius: 16px;
+  border: 1px solid var(--surface-border-soft);
+  padding: 1rem;
+}
+
+.simple-card h2 {
+  margin-top: 0;
+}
+
+.simple-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.simple-list li {
+  margin-bottom: 0.3rem;
+}
+
+/* EDUCATION: species search bar demo */
 .species-search-box {
   display: flex;
   align-items: center;
@@ -510,7 +531,7 @@ body {
 }
 
 .tick-modal {
-  background-color: #020617; /* matches the dark surface */
+  background-color: #020617;
   border-radius: 12px;
   padding: 1rem;
   max-width: 480px;
@@ -539,42 +560,6 @@ body {
   display: block;
   width: 100%;
   height: auto;
-}
-
-
-.simple-page-wrapper {
-  flex: 1 1 auto;
-  display: flex;
-  padding: 1rem 1.6rem;
-}
-
-.simple-page {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.simple-card {
-  background-color: var(--surface-dark-2);
-  border-radius: 16px;
-  border: 1px solid var(--surface-border-soft);
-  padding: 1rem;
-}
-
-.simple-card h2 {
-  margin-top: 0;
-}
-
-.simple-list {
-  margin: 0.5rem 0 0;
-  padding-left: 1.1rem;
-}
-
-.simple-list li {
-  margin-bottom: 0.3rem;
 }
 
 /* REPORT FORM STYLES */
@@ -623,7 +608,7 @@ body {
   box-shadow: 0 0 0 1px rgba(75, 215, 251, 0.3);
 }
 
-/* I use this for small error messages under a field. */
+/* Small error messages under a field. */
 .error-text {
   font-size: 0.75rem;
   color: #f97373;
@@ -638,24 +623,23 @@ body {
   font-size: 0.8rem;
 }
 
-/* Success uses a soft mint tone from the palette. */
+/* Success uses a soft mint tone. */
 .status-success {
   background-color: rgba(132, 251, 177, 0.08);
   border: 1px solid var(--accent-bright-2);
 }
 
-/* Error still uses a strong red for clarity. */
+/* Error uses a strong red for clarity. */
 .status-error {
   background-color: #450a0a;
   border: 1px solid #f97373;
 }
 
-/* Warning uses an amber tone so it looks different from error and success. */
+/* Warning uses an amber tone so it stands apart. */
 .status-warning {
-  background-color: #451a03; /* dark amber background */
-  border: 1px solid #fbbf24; /* bright amber border */
+  background-color: #451a03;
+  border: 1px solid #fbbf24;
 }
-
 
 /* On small screens I stack date + time vertically. */
 @media (max-width: 600px) {
@@ -664,14 +648,12 @@ body {
   }
 }
 
-/* For the tick map markers */
+/* For the tick map markers I add a small shadow so they pop on the dark map. */
 .tick-marker-icon img {
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
 }
 
-
-/* RESPONSIVE */
-
+/* RESPONSIVE: on narrower screens I stack panels instead of three columns. */
 @media (max-width: 900px) {
   .content-layout {
     flex-direction: column;

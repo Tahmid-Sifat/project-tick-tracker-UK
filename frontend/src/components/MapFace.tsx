@@ -1,6 +1,3 @@
-// importing React because I am writing a React component.
-import React from "react";
-
 // importing the Leaflet map pieces.
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -101,7 +98,7 @@ function getSeverityIcon(severity: Sighting["severity"]) {
 // It ONLY operates on the map and the tick data that I already have.
 
 // function component called MapFace  that expects MapFaceProps as props
-const MapFace: React.FC<MapFaceProps> = ({ onSelectSighting }) => {
+function MapFace({ onSelectSighting } : MapFaceProps) {
   // For this version I simply use the 15 demoSightings from my data file.
   const sightings = demoSightings;
 
@@ -142,6 +139,6 @@ const MapFace: React.FC<MapFaceProps> = ({ onSelectSighting }) => {
       ))}
     </MapContainer>
   );
-};
+}
 
 export default MapFace;

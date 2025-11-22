@@ -46,5 +46,29 @@
     "location": "Belfest",
     "species": "Hedgehog tick",
     "severity": "low"
+  },
+  {
+    "id": 1763824561872,
+    "date": "2025-08-13",
+    "time": "16:15",
+    "location": "Uxbridge, London",
+    "species": "Hedgehog tick",
+    "severity": "medium"
+  },
+  {
+    "id": 1763824602823,
+    "date": "2025-11-12",
+    "time": "17:16",
+    "location": "213434",
+    "species": "Passerine tick",
+    "severity": "medium"
+  },
+  {
+    "id": 1763834223226,
+    "date": "2025-11-06",
+    "time": "18:56",
+    "location": "hook",
+    "species": "Hedgehog tick",
+    "severity": "high"
   }
 ]

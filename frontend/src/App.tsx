@@ -1,5 +1,5 @@
-//  importing React and useState because I need simple view + selection state.
-import React, { useState } from "react";
+//  importing  useState because current selection tab.
+import { useState } from "react";
 
 // importing my main stylesheet for the layout.
 import "./App.css";
@@ -12,11 +12,11 @@ import ReportForm from "./components/ReportForm";
 
 // importing the logo image.
 import logoT from "./assets/logoT.png";
-// importing the small reader icon PNG for my accessibility toggle.
+// importing the small reader icon PNG for my accessibility toggle button.
 import readerIcon from "./assets/reader.png";
 
 
-// importing the Sighting type so I can type the selected sighting.
+// importing the Sighting typeScript so I can show the selected sighting.
 import type { Sighting } from "./data/sightings";
 
 // describing the possible  tabs in this app by using union type 
@@ -24,28 +24,31 @@ type View = "map" | "education" | "report";
 
 // This is my main App component.
 // It only handles layout, navigation, and which view is shown.
-const App: React.FC = () => { // dot FC meaning , App is a react function component
-  // for storing which view/tab is currently active.
-  const [activeView, setActiveView] = useState<View>("map");
+function App() { // declaring App as a react function component
 
-  // storing which sighting is selected on the map (for the right-hand details panel).
-  const [selectedSighting, setSelectedSighting] = useState<Sighting | null>(
+  // using useState hook function for storing which tab is currently active 
+
+  const [activeView, setActiveView] = useState<View>("map"); // intial state is set to map 
+
+  // storing which sighting is selected on the map using the usestate hook (for the right-hand details panel).
+  const [selectedSighting, setSelectedSighting] = useState<Sighting | null>( // initial state is set to null
     null
   );
 
   // I am storing whether the text-to-speech reader is currently reading or not.
-  const [isReading, setIsReading] = useState(false);
+  const [isReading, setIsReading] = useState(false); // initial state set to false 
 
 
   // When the user clicks a marker, the map calls this function.
   const handleSelectSighting = (sighting: Sighting) => {
-    setSelectedSighting(sighting);
+    setSelectedSighting(sighting); // using setter function ( from the hook ) to update the value 
   };
 
   // I am toggling a simple text-to-speech "screen reader" using the Web Speech API.
   // When the user is clicking the icon:
   // - if reading is already active, I am stopping it,
-  // - otherwise I am grabbing the visible app text and I am reading it out loud.
+  // - otherwise I am grabbing the visible app text and reading it out loud.
+  
   const toggleScreenReader = () => {
     // I am checking that I am in a browser and that speechSynthesis is available.
     if (typeof window === "undefined" || !("speechSynthesis" in window)) {
@@ -312,6 +315,6 @@ const App: React.FC = () => { // dot FC meaning , App is a react function compon
       )}
     </div>
   );
-};
+}
 
 export default App;

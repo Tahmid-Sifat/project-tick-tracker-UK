@@ -16,7 +16,7 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 type StatusType = "success" | "error" | "warning" | null;
 
 // This is the main "Report a sighting" form as react function component 
-const ReportForm: React.FC = () => {
+function ReportForm() {
   // storing the current form values here , using useState Hook
   const [formData, setFormData] = useState<FormData>({
     date: "",
@@ -244,7 +244,7 @@ const ReportForm: React.FC = () => {
             <option value="Hedgehog tick">Hedgehog tick</option>
             <option value="Passerine tick">Passerine tick</option>
             <option value="Red sheep tick">Red sheep tick</option>
-            
+
           </select>
           {errors.species && <p className="error-text">{errors.species}</p>}
         </div>
@@ -273,6 +273,6 @@ const ReportForm: React.FC = () => {
       </form>
     </section>
   );
-};
+}
 
 export default ReportForm;

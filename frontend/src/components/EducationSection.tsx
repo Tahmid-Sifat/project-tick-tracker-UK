@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-// importing the react library and the useState hook from React 
+import  { useState } from "react";
+// importing the useState hook from React 
 // useState hook is used to track which species is currently selected 
 
 // importing the four species images from the assets folder.
@@ -51,7 +51,7 @@ const speciesList: SpeciesInfo[] = [ // using the type I declared
 
 // declaring react function component for the education section contents 
 
-const EducationSection: React.FC = () => {
+function EducationSection() {
   // storing which species image is currently being shown in the popup.
   const [activeSpecies, setActiveSpecies] = useState<SpeciesInfo | null>(null);
 // here , useState using type union impplying either speciesInfo objects can be selected or null 
@@ -107,6 +107,9 @@ return (
             Wear long sleeves and trousers in high-risk areas if possible.
           </li>
           <li>Remove ticks carefully with a proper tick removal tool.</li>
+          <li>Use tick control collars as recommended by a veterinarian.</li>
+          <li>Consider using pet-safe tick repellents in the yard or garden .</li>
+          <li>Regularly groom pets with a fine-toothed comb</li>
         </ul>
       </section>
 
@@ -143,6 +146,6 @@ return (
       )}
     </div>
   );
-};
+}
 
 export default EducationSection;

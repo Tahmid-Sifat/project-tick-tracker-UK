@@ -1,161 +1,178 @@
-TickSight UK – React + TypeScript Project by Tahmid Al Sifat
-------------------------------------------------------------
+# TickSight UK – React + TypeScript Project by Tahmid Al Sifat
 
-This is my submission for the Elanco technical task for the industrial placement position 2026. I built a frontend for MVP using React + TypeScript application that shows tick activity across the UK, lets users explore a simple education page, and allows reporting a new sighting through a lightweight Node.js backend.
+This is my submission for the Elanco technical task for the Industrial Placement Position 2026.  
+I built a clean and simple MVP-style frontend using **React + TypeScript** that visualises tick activity across the UK, provides an educational section, and allows users to report new sightings through a lightweight **Node.js backend**.
 
-My goal was to keep the project clean, readable, and easy to run, while still touching on the main areas of the task: mapping, UI/state management, validation, and basic server interaction.
+My goal was to keep the project readable, easy to run, and structured clearly, while covering core areas of the task such as mapping, UI state management, accessibility, validation, and basic backend integration.
 
-What the app does :
+---
 
-The app has three main sections, controlled through simple top-level navigation:
+## What the app does
 
-1. Map
+The application contains **three main sections**, controlled through the navigation bar at the top.
 
-This is the main view of the project.
+---
+
+## 1. Map
+
+This is the primary view of the project.
+
 It includes:
 
-An interactive Leaflet map with demo tick sightings (15 locations across the UK)
+- An interactive **Leaflet map** with 15 demo tick sightings across the UK  
+- **Custom tick-themed markers** coloured by severity (low, medium, high)  
+- A **details panel** that updates when clicking a marker  
+- A **filters sidebar** (UI only as a demo)
 
-Coloured customized tick-themed markers for severity (low, medium, high)
+The demo dataset is included locally due to browser CORS limitations on the original API.
 
-A right-side panel that shows details when you click a marker
+---
 
-A left filter section (UI only), showing how filtering would work in a real system
+## 2. Education
 
-2. Education
+A simple, easy-to-read page that introduces **four common UK tick species**:
 
-A simple page where I list four common UK tick species , later it will be connected with more enriched database of tick species :
+- Sheep or deer tick  
+- Hedgehog tick  
+- Passerine tick  
+- Red sheep tick  
 
-Sheep or deer tick
+Features include:
 
-Hedgehog tick
+- A **“View image”** modal popup showing a species photo  
+- A **search bar** UI (demo behaviour)  
+- A **prevention tips** section  
+- A clean card layout for clarity and accessibility
 
-Passerine tick
+In a real project, this section would be backed by a richer dataset and more detailed species profiles.
 
-Red sheep tick
+---
 
-Each species has a “View image” button which opens a modal with a photo and a short description.
-I also added a small search bar (currently a placeholder) to show how species search could work in the future.
-This section also include prevention guidelines.
+## 3. Report a Sighting
 
-3. Report
+A fully functional report form with both frontend and backend validation.
 
-A form where users can report a new sighting.
-This part includes:
+Includes:
 
-Frontend validation
+- Client-side required field checks  
+- Server-side validation via Express  
+- **Success, error, and warning** messages  
+- Submitting data to the backend  
+- Saving reports to a JSON file
 
-Backend validation
+Extra logic:
 
-Status messages (success, error, warning)
+If the user enters a location containing **only numbers**, the sighting is still saved, but the UI displays a **warning** encouraging the user to double-check the location.
 
-A JSON-file backed Express API that stores submitted sightings
+---
 
-I also added a small extra logic piece:
-If the location is only numbers (e.g. “12345”), I still save the sighting but show a warning, since a location normally contains text.
+## Accessibility Features
 
-Accessibility features : 
+To demonstrate accessibility awareness, the project includes:
 
-As a simple accessibility demo, I added a text-to-speech screen reader toggle in the header.
-Clicking the icon:
+- A **text-to-speech reader toggle** in the top-right corner  
+- Uses the **Web Speech API**  
+- Reads out visible text from the main application  
+- Click again to stop reading  
+- High-contrast colour scheme and clear typography
 
-Reads out the visible text on the page
+This is intentionally kept simple for interview explanation.
 
-Clicking again stops the reading
+---
 
-Works using the built-in Web Speech API
+## Web Technologies Used
 
-A clear visual design with high contrast.
+### Frontend
+- React (function components)
+- TypeScript
+- Vite
+- React Leaflet + Leaflet (Carto & OpenStreetMap tile layers)
+- CSS (single dark-themed App.css)
 
-Web Technologies I used 
--------------------------
+### Backend
+- Node.js
+- Express
+- CORS
+- `fs` module for JSON persistence (lightweight substitute for a database)
 
-For Frontend : 
+---
 
-React (modern function component style)
+# How to run the project
 
-TypeScript
+## Prerequisites
+Make sure you have **Node.js v18+** installed.  
+npm is included automatically.
 
-Vite
+This project consists of:
 
-React Leaflet + Leaflet ( Tile layer and theme from openStreetMap and Carto)
+- A frontend (React + Vite)
+- A backend (Node + Express)
 
-CSS with a custom dark theme
+Both must be running.
 
-For Backend : 
+---
 
-Node.js
+## Step 1: Start the backend
 
-Express
+Open a terminal:
 
-CORS
-
-File system API (fs) for lightweight JSON persistence
-
-
-How to run the project : 
-
-Prerequisites:
-You need Node.js installed (version 18 or higher recommended). npm comes with Node, so no separate installation is required.
-This project has two parts:
-
-A frontend (React + Vite)
-
-A backend (Node + Express)
-Both need to be running.
-
-Step 1: Start the backend
-
-Open a terminal.
-
-Navigate into the backend folder:
+```
 cd backend
-
-Install backend dependencies:
 npm install
-
-Start the backend server:
 npm start
+```
 
 The backend will run at:
+
+```
 http://localhost:4000
+```
 
-It exposes a single API endpoint:
+Available API route:
+
+```
 POST /api/sightings
+```
 
-Sightings are saved in:
+Sightings are saved to:
+
+```
 backend/sightings.json
-This file is created automatically if it does not exist.
+```
 
-Step 2: Start the frontend
+This file is created automatically if missing.
 
-Open a second terminal window.
+---
 
-Navigate into the frontend folder:
+## Step 2: Start the frontend
+
+Open a **new terminal window**:
+
+```
 cd frontend
-
-Install frontend dependencies:
 npm install
-
-Start the Vite development server:
 npm run dev
+```
 
-Vite will start and display a local URL, usually:
+Vite will show a local development URL, usually:
+
+```
 http://localhost:5173
+```
 
 Open that address in your browser.
 
-Step 3: Using the application
+---
+
+## Step 3: Using the application
+
 Once both servers are running:
 
-The Map view shows demo tick sightings across the UK.
+- The **Map** view displays UK tick markers and updates the details panel when clicked  
+- The **Education** view provides species descriptions and image pop-ups  
+- The **Report** view allows submitting new sightings (saved to the backend)  
+- The **screen-reader button** reads visible text aloud  
 
-Clicking a marker shows details in the right-hand panel.
+---
 
-The Education view shows four species with descriptions and image popups.
-
-The Report view lets you submit a new tick sighting to the backend.
-
-The screen-reader button in the header reads out the visible page text.
-
-
+If you need additional clarification or improvements such as screenshots, badges, or diagrams, feel free to ask.

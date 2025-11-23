@@ -1,9 +1,11 @@
-# TickSight UK – React + TypeScript Project by Tahmid Al Sifat
+# TickSight UK – Elanco Task ( Frontend ) by Tahmid Al Sifat
 
 This is my submission for the Elanco technical task for the Industrial Placement Position 2026.  
 I built a clean and simple MVP-style frontend using **React + TypeScript** that visualises tick activity across the UK, provides an educational section, and allows users to report new sightings through a lightweight **Node.js backend**.
 
-My goal was to keep the project readable, easy to run, and structured clearly, while covering core areas of the task such as mapping, UI state management, accessibility, validation, and basic backend integration.
+The video explaining the solution web-application I built : https://youtu.be/uo9nVf0sZ_8
+
+My goal was to keep the project readable, easy to run, and structured clearly, while covering core areas of the task such as mapping, UI state management, education section, validation, and basic backend integration. As an additional feature , I tried to implement some accessibility features as well. 
 
 ---
 
@@ -15,17 +17,18 @@ The application contains **three main sections**, controlled through the navigat
 
 ## 1. Map
 
-This is the primary view of the project.
+This is the primary view of the project that helps the users to visualize tick data across UK according to the parameters.
 
 It includes:
 
-- An interactive **Leaflet map** with 15 demo tick sightings across the UK  
+- An interactive **Leaflet map** (that used TileLayers from OpenStreetMap and theme from CARTO) 
+- The map included 15 demo tick sightings across the UK  
 - **Custom tick-themed markers** coloured by severity (low, medium, high)  
 - A **details panel** that updates when clicking a marker  
 - A **filters sidebar** (UI only as a demo)
 
-The demo dataset is included locally due to browser CORS limitations on the original API.
-
+I tried to fetch the sightings data from the Data API , but reportedly failed due to CORS restrctions. In real implementation , the
+map will contain sightings from real time data api and will visibily show the markers across UK .  
 ---
 
 ## 2. Education
@@ -44,7 +47,7 @@ Features include:
 - A **prevention tips** section  
 - A clean card layout for clarity and accessibility
 
-In a real project, this section would be backed by a richer dataset and more detailed species profiles.
+In a real product, this section would be backed by a richer dataset and more detailed species profiles.
 
 ---
 
@@ -62,7 +65,7 @@ Includes:
 
 Extra logic:
 
-If the user enters a location containing **only numbers**, the sighting is still saved, but the UI displays a **warning** encouraging the user to double-check the location.
+If the user enters a location containing **only numbers**, the sighting is still saved, but the UI displays a **warning** encouraging the user to double-check the location. As numbers can indicate a coordinates on the map but also can mean nothing significant. 
 
 ---
 
@@ -76,7 +79,6 @@ To demonstrate accessibility awareness, the project includes:
 - Click again to stop reading  
 - High-contrast colour scheme and clear typography
 
-This is intentionally kept simple for interview explanation.
 
 ---
 
@@ -91,13 +93,26 @@ This is intentionally kept simple for interview explanation.
 
 ### Backend
 - Node.js
-- Express
+- Express ( for establishing the server )
 - CORS
 - `fs` module for JSON persistence (lightweight substitute for a database)
 
 ---
 
 # How to run the project
+
+0. Clone the repository
+
+Open a terminal and run:
+
+git clone https://github.com/Tahmid-Sifat/project-tick-tracker-UK
+cd project-tick-tracker-UK
+
+This puts you inside the root folder that contains both:
+
+backend/
+
+frontend/
 
 ## Prerequisites
 Make sure you have **Node.js v18+** installed.  
@@ -175,4 +190,4 @@ Once both servers are running:
 
 ---
 
-If you need additional clarification or improvements such as screenshots, badges, or diagrams, feel free to ask.
+If you need additional clarification feel free reach out .

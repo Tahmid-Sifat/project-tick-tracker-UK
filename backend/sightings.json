@@ -70,5 +70,37 @@
     "location": "hook",
     "species": "Hedgehog tick",
     "severity": "high"
+  },
+  {
+    "id": 1763849085611,
+    "date": "2025-08-11",
+    "time": "23:04",
+    "location": "London",
+    "species": "Hedgehog tick",
+    "severity": "medium"
+  },
+  {
+    "id": 1763849114291,
+    "date": "2025-11-11",
+    "time": "12:07",
+    "location": "132348",
+    "species": "Sheep or deer tick",
+    "severity": "low"
+  },
+  {
+    "id": 1763850165792,
+    "date": "2025-08-12",
+    "time": "22:22",
+    "location": "London",
+    "species": "Hedgehog tick",
+    "severity": "medium"
+  },
+  {
+    "id": 1763850208033,
+    "date": "2025-11-13",
+    "time": "12:24",
+    "location": "38474",
+    "species": "Sheep or deer tick",
+    "severity": "medium"
   }
 ]
